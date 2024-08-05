@@ -3,7 +3,7 @@ import http from "http";
 import { Client } from "@notionhq/client";
 
 const host = "localhost";
-const port = 8000;
+const port = process.env.PORT || 4000;
 
 interface Projects {
   project_name: string;
@@ -85,6 +85,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(port, host, () => {
-  console.log(`Server is running on http://${host}:${port}`);
+server.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
