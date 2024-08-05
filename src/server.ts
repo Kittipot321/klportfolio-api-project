@@ -11,6 +11,7 @@ interface Projects {
   description: string;
   link: string;
   year: number | null;
+  img_url: string;
 }
 
 const notionDatabaseId = process.env.NOTION_DATABASE_ID;
@@ -67,6 +68,10 @@ const server = http.createServer(async (req, res) => {
           row.properties.year?.type === "number"
             ? row.properties.year.number
             : 0;
+        const img_url =
+          row.properties.img_url?.type === "rich_text"
+            ? row.properties.img_url.rich_text[0]?.plain_text || ""
+            : "";
 
         return {
           project_name,
@@ -74,6 +79,7 @@ const server = http.createServer(async (req, res) => {
           description,
           link,
           year,
+          img_url,
         };
       });
 
